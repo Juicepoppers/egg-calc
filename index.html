@@ -10,7 +10,8 @@
             background-color: #1e1f22; 
             color: #dbdee1; 
             display: flex;
-            justify-content: center;
+            flex-direction: column;
+            align-items: center;
             padding-top: 30px;
             padding-bottom: 30px;
             margin: 0;
@@ -21,6 +22,7 @@
             padding: 25px; 
             border-radius: 8px; 
             box-shadow: 0 4px 15px rgba(0,0,0,0.5); 
+            margin-bottom: 20px;
         }
         h1 { 
             color: #5865F2; 
@@ -94,6 +96,48 @@
             margin-top: 10px; 
             display: none; 
         }
+
+        /* STYLES FOR THE REFERENCE LIST */
+        .reference-box {
+            width: 450px;
+            background: #313338;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        }
+        .reference-box h2 {
+            color: #5865F2;
+            text-align: center;
+            font-size: 18px;
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+        .ref-list {
+            max-height: 400px;
+            overflow-y: auto;
+            background: #1e1f22;
+            border-radius: 4px;
+            border: 1px solid #444;
+        }
+        .ref-item {
+            display: flex;
+            padding: 8px 15px;
+            border-bottom: 1px solid #2b2d31;
+            font-size: 14px;
+            font-family: monospace;
+        }
+        .ref-item:nth-child(even) {
+            background: #2b2d31;
+        }
+        .ref-e {
+            color: #b5bac1;
+            width: 60px;
+            flex-shrink: 0;
+        }
+        .ref-val {
+            color: #dbdee1;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -147,10 +191,60 @@
     </div>
 </div>
 
+<!-- THE EXACT REFERENCE LIST FROM THE IMAGE -->
+<div class="reference-box">
+    <h2>Suffix Reference Chart</h2>
+    <div class="ref-list">
+        <div class="ref-item"><span class="ref-e">1E+01</span><span class="ref-val">10 = 1e1</span></div>
+        <div class="ref-item"><span class="ref-e">1E+02</span><span class="ref-val">100 = 1e2</span></div>
+        <div class="ref-item"><span class="ref-e">1E+03</span><span class="ref-val">1,000 = 1e3</span></div>
+        <div class="ref-item"><span class="ref-e">1E+04</span><span class="ref-val">10,000 = 1e4</span></div>
+        <div class="ref-item"><span class="ref-e">1E+05</span><span class="ref-val">100K = 1e5</span></div>
+        <div class="ref-item"><span class="ref-e">1E+06</span><span class="ref-val">1,000K = 1e6</span></div>
+        <div class="ref-item"><span class="ref-e">1E+07</span><span class="ref-val">10,000K = 1e7</span></div>
+        <div class="ref-item"><span class="ref-e">1E+08</span><span class="ref-val">100M = 1e8</span></div>
+        <div class="ref-item"><span class="ref-e">1E+09</span><span class="ref-val">1,000M = 1e9</span></div>
+        <div class="ref-item"><span class="ref-e">1E+10</span><span class="ref-val">10,000M = 1e10</span></div>
+        <div class="ref-item"><span class="ref-e">1E+11</span><span class="ref-val">100B = 1e11</span></div>
+        <div class="ref-item"><span class="ref-e">1E+12</span><span class="ref-val">1,000B = 1e12</span></div>
+        <div class="ref-item"><span class="ref-e">1E+13</span><span class="ref-val">10,000B = 1e13</span></div>
+        <div class="ref-item"><span class="ref-e">1E+14</span><span class="ref-val">100T = 1e14</span></div>
+        <div class="ref-item"><span class="ref-e">1E+15</span><span class="ref-val">1,000T = 1e15</span></div>
+        <div class="ref-item"><span class="ref-e">1E+16</span><span class="ref-val">10,000T = 1e16</span></div>
+        <div class="ref-item"><span class="ref-e">1E+17</span><span class="ref-val">100q = 1e17</span></div>
+        <div class="ref-item"><span class="ref-e">1E+18</span><span class="ref-val">1,000q = 1e18</span></div>
+        <div class="ref-item"><span class="ref-e">1E+19</span><span class="ref-val">10,000q = 1e19</span></div>
+        <div class="ref-item"><span class="ref-e">1E+20</span><span class="ref-val">100Q = 1e20</span></div>
+        <div class="ref-item"><span class="ref-e">1E+21</span><span class="ref-val">1,000Q = 1e21</span></div>
+        <div class="ref-item"><span class="ref-e">1E+22</span><span class="ref-val">10,000Q = 1e22</span></div>
+        <div class="ref-item"><span class="ref-e">1E+23</span><span class="ref-val">100s = 1e23</span></div>
+        <div class="ref-item"><span class="ref-e">1E+24</span><span class="ref-val">1,000s = 1e24</span></div>
+        <div class="ref-item"><span class="ref-e">1E+25</span><span class="ref-val">10,000s = 1e25</span></div>
+        <div class="ref-item"><span class="ref-e">1E+26</span><span class="ref-val">100S = 1e26</span></div>
+        <div class="ref-item"><span class="ref-e">1E+27</span><span class="ref-val">1,000S = 1e27</span></div>
+        <div class="ref-item"><span class="ref-e">1E+28</span><span class="ref-val">10,000S = 1e28</span></div>
+        <div class="ref-item"><span class="ref-e">1E+29</span><span class="ref-val">100 O = 1e29</span></div>
+        <div class="ref-item"><span class="ref-e">1E+30</span><span class="ref-val">1,000 O = 1e30</span></div>
+        <div class="ref-item"><span class="ref-e">1E+31</span><span class="ref-val">10,000 O = 1e31</span></div>
+        <div class="ref-item"><span class="ref-e">1E+32</span><span class="ref-val">100N = 1e32</span></div>
+        <div class="ref-item"><span class="ref-e">1E+33</span><span class="ref-val">1,000N = 1e33</span></div>
+        <div class="ref-item"><span class="ref-e">1E+34</span><span class="ref-val">10,000N = 1e34</span></div>
+        <div class="ref-item"><span class="ref-e">1E+35</span><span class="ref-val">100d = 1e35</span></div>
+        <div class="ref-item"><span class="ref-e">1E+36</span><span class="ref-val">1,000d = 1e36</span></div>
+        <div class="ref-item"><span class="ref-e">1E+37</span><span class="ref-val">10,000d = 1e37</span></div>
+        <div class="ref-item"><span class="ref-e">1E+38</span><span class="ref-val">100U = 1e38</span></div>
+        <div class="ref-item"><span class="ref-e">1E+39</span><span class="ref-val">1,000U = 1e39</span></div>
+        <div class="ref-item"><span class="ref-e">1E+40</span><span class="ref-val">10,000U = 1e40</span></div>
+        <div class="ref-item"><span class="ref-e">1E+41</span><span class="ref-val">100D = 1e41</span></div>
+        <div class="ref-item"><span class="ref-e">1E+42</span><span class="ref-val">1,000D = 1e42</span></div>
+        <div class="ref-item"><span class="ref-e">1E+43</span><span class="ref-val">10,000D = 1e43</span></div>
+        <div class="ref-item"><span class="ref-e">1E+44</span><span class="ref-val">100,000D = 1e44</span></div>
+    </div>
+</div>
+
 <script>
 function calculate() {
     try {
-        // If a user leaves a box blank, default it to 0
         let getVal = (id) => {
             let val = document.getElementById(id).value;
             return val.trim() === "" ? "0" : val.toUpperCase().replace('+', '').replace(' ', '');
@@ -171,7 +265,7 @@ function calculate() {
         let currTurtle = parseNum(getVal('currTurtle'));
         let currMisc = parseInt(getVal('currMisc')) || 0;
 
-        if (isNaN(total.m) || isNaN(total.e)) return alert("Invalid Total BE");
+        if (isNaN(total.m) || isNaN(total.e)) return alert("Invalid Total BE. Please use format like 5.25e308");
 
         let totalE = total.e + Math.log10(total.m);
 
