@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mind-Math Calculator</title>
+    <style>
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background-color: #1e1f22; 
+            color: #dbdee1; 
+            display: flex;
+            justify-content: center;
+            padding-top: 30px;
+            padding-bottom: 30px;
+            margin: 0;
+        }
+        .container { 
+            width: 450px; 
+            background: #313338; 
+            padding: 25px; 
+            border-radius: 8px; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5); 
+        }
+        h1 { 
+            color: #5865F2; 
+            text-align: center; 
+            font-size: 22px; 
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+        .input-row {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 10px;
+        }
+        .input-group { 
+            flex: 1;
+        }
+        label { 
+            display: block; 
+            margin-bottom: 5px; 
+            font-weight: bold;
+            font-size: 13px;
+            color: #b5bac1;
+        }
+        input { 
+            width: 100%; 
+            padding: 10px; 
+            border-radius: 4px; 
+            border: 1px solid #1e1f22; 
+            background: #1e1f22; 
+            color: white; 
+            font-size: 14px; 
+            box-sizing: border-box;
+        }
+        input:focus { outline: none; border-color: #5865F2; }
+        button { 
+            width: 100%; 
+            padding: 12px; 
+            background: #5865F2; 
+            border: none; 
+            color: white; 
+            font-size: 16px; 
+            font-weight: bold; 
+            border-radius: 4px; 
+            cursor: pointer; 
+            margin-top: 15px;
+            transition: 0.2s;
+        }
+        button:hover { background: #4752c4; }
+        .results { 
+            margin-top: 25px; 
+            background: #2b2d31; 
+            padding: 15px; 
+            border-radius: 4px; 
+            border-left: 4px solid #5865F2;
+        }
+        .result-item { 
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px; 
+            font-size: 15px; 
+        }
+        .highlight { 
+            color: #2ecc71; 
+            font-weight: bold; 
+            font-family: monospace;
+            font-size: 16px;
+        }
+        .warning { 
+            color: #e74c3c; 
+            font-size: 12px; 
+            margin-top: 10px; 
+            display: none; 
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Mind-Math Calculator</h1>
+
+    <div class="input-row">
+        <div class="input-group">
+            <label>Total BE (e.g. 5.253e308):</label>
+            <input type="text" id="totalBe" value="5.253e308">
+        </div>
+        <div class="input-group">
+            <label>Water % (e.g. 0.7364):</label>
+            <input type="number" id="waterPerc" value="0.7364" step="0.0001">
+        </div>
+    </div>
+
+    <hr style="border: 0; border-top: 1px solid #444; margin: 15px 0;">
+    <p style="font-size: 13px; color: #b5bac1; margin-top: 0;">Enter CURRENT levels to subtract them:</p>
+
+    <div class="input-row">
+        <div class="input-group">
+            <label>Current Good Knight:</label>
+            <input type="text" id="currGK" value="1.524e258">
+        </div>
+        <div class="input-group">
+            <label>Current Main 7:</label>
+            <input type="text" id="currMain7" value="1.053e129">
+        </div>
+    </div>
+    <div class="input-row">
+        <div class="input-group">
+            <label>Current Turtle:</label>
+            <input type="text" id="currTurtle" value="1.875e103">
+        </div>
+        <div class="input-group">
+            <label>Current Misc 13:</label>
+            <input type="number" id="currMisc" value="852">
+        </div>
+    </div>
+
+    <button onclick="calculate()">Calculate Amount to Add</button>
+
+    <div class="results">
+        <div class="result-item">Good Knight: <span class="highlight" id="outGK">-</span></div>
+        <div class="result-item">Main 7: <span class="highlight" id="outMain7">-</span></div>
+        <div class="result-item">Turtle: <span class="highlight" id="outTurtle">-</span></div>
+        <div class="result-item">Misc 13 (+ Levels): <span class="highlight" id="outMisc">-</span></div>
+        <div class="warning" id="warnText">⚠️ Warning: Your BE is close to prior retirement. Levels have been subtracted.</div>
+    </div>
+</div>
+
+<script>
+function calculate() {
+    try {
+        let beStr = document.getElementById('totalBe').value.toUpperCase().replace('+', '').replace(' ', '');
+        let water = parseFloat(document.getElementById('waterPerc').value);
+
+        // Parse input numbers manually into mantissa and exponent to prevent Infinity
+        let parseNum = (str) => {
+            let parts = str.split('E');
+            if(parts.length === 1) return { m: parseFloat(parts[0]), e: 0 };
+            return { m: parseFloat(parts[0]), e: parseFloat(parts[1]) };
+        };
+
+        let total = parseNum(beStr);
+        let currGK = parseNum(document.getElementById('currGK').value.toUpperCase());
+        let currMain7 = parseNum(document.getElementById('currMain7').value.toUpperCase());
+        let currTurtle = parseNum(document.getElementById('currTurtle').value.toUpperCase());
+        let currMisc = parseInt(document.getElementById('currMisc').value) || 0;
+
+        if (isNaN(total.m) || isNaN(total.e)) return alert("Invalid Total BE");
+
+        // Step 1: Total E (Log10 of total)
+        let totalE = total.e + Math.log10(total.m);
+
+        // Step 2: Good Knight (20% of Total)
+        let gkE = totalE + Math.log10(0.2); 
+        let gkExp = Math.floor(gkE);
+        let gkMantissa = Math.pow(10, gkE - gkExp);
+
+        // Step 3: Main 7
+        let main7E = (gkE - 1) / 2;
+        let main7Exp = Math.floor(main7E);
+        let main7Mantissa = Math.pow(10, main7E - main7Exp);
+
+        // Step 4: Turtle
+        let turtleE = main7E * 0.8;
+        let turtleExp = Math.floor(turtleE);
+        let turtleMantissa = Math.pow(10, turtleE - turtleExp);
+
+        // Step 5: Misc 13
+        let effectiveWaterBoost = Math.log10(1 / (1 - water));
+        let miscBudgetE = totalE + effectiveWaterBoost - 2; 
+        let targetMisc = Math.floor(miscBudgetE * 3.3219); 
+        let addMisc = Math.max(0, targetMisc - currMisc);
+
+        // --- SUBTRACTION (Avoiding Infinity by comparing exponents) ---
+        let formatResult = (targetM, targetE, currObj) => {
+            let currReal = 0;
+            if (currObj.e < 308) {
+                currReal = currObj.m * Math.pow(10, currObj.e);
+            }
+            
+            let targetReal = 0;
+            if (targetE < 308) {
+                targetReal = targetM * Math.pow(10, targetE);
+            } else {
+                return targetM.toFixed(5) + "e" + targetE;
+            }
+
+            let diff = targetReal - currReal;
+            if (diff <= 0) return "0";
+            return diff.toExponential(5).replace('+', '');
+        };
+
+        document.getElementById('outGK').innerText = "+" + formatResult(gkMantissa, gkExp, currGK);
+        document.getElementById('outMain7').innerText = "+" + formatResult(main7Mantissa, main7Exp, currMain7);
+        document.getElementById('outTurtle').innerText = "+" + formatResult(turtleMantissa, turtleExp, currTurtle);
+        document.getElementById('outMisc').innerText = "+" + addMisc;
+        
+        document.getElementById('warnText').style.display = 'block';
+
+    } catch (error) {
+        alert("Error: " + error.message);
+    }
+}
+</script>
+
+</body>
+</html>
