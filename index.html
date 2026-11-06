@@ -10,7 +10,8 @@
             background-color: #1e1f22; 
             color: #dbdee1; 
             display: flex;
-            justify-content: center;
+            flex-direction: column;
+            align-items: center;
             padding-top: 30px;
             padding-bottom: 30px;
             margin: 0;
@@ -21,6 +22,7 @@
             padding: 25px; 
             border-radius: 8px; 
             box-shadow: 0 4px 15px rgba(0,0,0,0.5); 
+            margin-bottom: 20px;
         }
         h1 { 
             color: #5865F2; 
@@ -94,6 +96,47 @@
             margin-top: 10px; 
             display: none; 
         }
+
+        /* NEW STYLES FOR THE REFERENCE LIST */
+        .reference-box {
+            width: 450px;
+            background: #313338;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        }
+        .reference-box h2 {
+            color: #5865F2;
+            text-align: center;
+            font-size: 18px;
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+        .ref-list {
+            max-height: 300px;
+            overflow-y: auto;
+            background: #1e1f22;
+            border-radius: 4px;
+            border: 1px solid #444;
+        }
+        .ref-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 15px;
+            border-bottom: 1px solid #2b2d31;
+            font-size: 14px;
+            font-family: monospace;
+        }
+        .ref-item:nth-child(even) {
+            background: #2b2d31;
+        }
+        .ref-item span:first-child {
+            color: #b5bac1;
+        }
+        .ref-item span:last-child {
+            color: #dbdee1;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -147,10 +190,60 @@
     </div>
 </div>
 
+<!-- THE NEW REFERENCE LIST -->
+<div class="reference-box">
+    <h2>Suffix Reference Chart</h2>
+    <div class="ref-list">
+        <div class="ref-item"><span>e1</span><span>10</span></div>
+        <div class="ref-item"><span>e2</span><span>100</span></div>
+        <div class="ref-item"><span>e3</span><span>1K</span></div>
+        <div class="ref-item"><span>e4</span><span>10K</span></div>
+        <div class="ref-item"><span>e5</span><span>100K</span></div>
+        <div class="ref-item"><span>e6</span><span>1M</span></div>
+        <div class="ref-item"><span>e7</span><span>10M</span></div>
+        <div class="ref-item"><span>e8</span><span>100M</span></div>
+        <div class="ref-item"><span>e9</span><span>1B</span></div>
+        <div class="ref-item"><span>e10</span><span>10B</span></div>
+        <div class="ref-item"><span>e11</span><span>100B</span></div>
+        <div class="ref-item"><span>e12</span><span>1T</span></div>
+        <div class="ref-item"><span>e13</span><span>10T</span></div>
+        <div class="ref-item"><span>e14</span><span>100T</span></div>
+        <div class="ref-item"><span>e15</span><span>1q</span></div>
+        <div class="ref-item"><span>e16</span><span>10q</span></div>
+        <div class="ref-item"><span>e17</span><span>100q</span></div>
+        <div class="ref-item"><span>e18</span><span>1Q</span></div>
+        <div class="ref-item"><span>e19</span><span>10Q</span></div>
+        <div class="ref-item"><span>e20</span><span>100Q</span></div>
+        <div class="ref-item"><span>e21</span><span>1s</span></div>
+        <div class="ref-item"><span>e22</span><span>10s</span></div>
+        <div class="ref-item"><span>e23</span><span>100s</span></div>
+        <div class="ref-item"><span>e24</span><span>1S</span></div>
+        <div class="ref-item"><span>e25</span><span>10S</span></div>
+        <div class="ref-item"><span>e26</span><span>100S</span></div>
+        <div class="ref-item"><span>e27</span><span>1O</span></div>
+        <div class="ref-item"><span>e28</span><span>10O</span></div>
+        <div class="ref-item"><span>e29</span><span>100O</span></div>
+        <div class="ref-item"><span>e30</span><span>1N</span></div>
+        <div class="ref-item"><span>e31</span><span>10N</span></div>
+        <div class="ref-item"><span>e32</span><span>100N</span></div>
+        <div class="ref-item"><span>e33</span><span>1d</span></div>
+        <div class="ref-item"><span>e34</span><span>10d</span></div>
+        <div class="ref-item"><span>e35</span><span>100d</span></div>
+        <div class="ref-item"><span>e36</span><span>1U</span></div>
+        <div class="ref-item"><span>e37</span><span>10U</span></div>
+        <div class="ref-item"><span>e38</span><span>100U</span></div>
+        <div class="ref-item"><span>e39</span><span>1D</span></div>
+        <div class="ref-item"><span>e40</span><span>10D</span></div>
+        <div class="ref-item"><span>e41</span><span>100D</span></div>
+        <div class="ref-item"><span>e42</span><span>1,000D</span></div>
+        <div class="ref-item"><span>e43</span><span>10,000D</span></div>
+        <div class="ref-item"><span>e44</span><span>100,000D</span></div>
+    </div>
+</div>
+
 <script>
 function calculate() {
     try {
-        // If a user leaves a box blank, default it to 0
         let getVal = (id) => {
             let val = document.getElementById(id).value;
             return val.trim() === "" ? "0" : val.toUpperCase().replace('+', '').replace(' ', '');
@@ -171,7 +264,7 @@ function calculate() {
         let currTurtle = parseNum(getVal('currTurtle'));
         let currMisc = parseInt(getVal('currMisc')) || 0;
 
-        if (isNaN(total.m) || isNaN(total.e)) return alert("Invalid Total BE");
+        if (isNaN(total.m) || isNaN(total.e)) return alert("Invalid Total BE. Please use format like 5.25e308");
 
         let totalE = total.e + Math.log10(total.m);
 
