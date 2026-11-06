@@ -29,19 +29,6 @@
             margin-top: 0;
             margin-bottom: 20px;
         }
-        .converter-box {
-            background: #2b2d31;
-            padding: 15px;
-            border-radius: 6px;
-            margin-bottom: 20px;
-            border: 1px solid #444;
-        }
-        .converter-box h3 {
-            margin: 0 0 10px 0;
-            font-size: 14px;
-            color: #b5bac1;
-            text-align: center;
-        }
         .input-row {
             display: flex;
             gap: 15px;
@@ -78,15 +65,10 @@
             font-weight: bold; 
             border-radius: 4px; 
             cursor: pointer; 
-            margin-top: 10px;
+            margin-top: 15px;
             transition: 0.2s;
         }
         button:hover { background: #4752c4; }
-        .convert-btn {
-            background: #2ecc71;
-            margin-top: 0;
-        }
-        .convert-btn:hover { background: #27ae60; }
         .results { 
             margin-top: 25px; 
             background: #2b2d31; 
@@ -118,17 +100,6 @@
 
 <div class="container">
     <h1>Mind-Math Calculator</h1>
-
-    <!-- THE NEW CONVERTER BOX -->
-    <div class="converter-box">
-        <h3>Game Suffix Converter</h3>
-        <div class="input-row">
-            <div class="input-group">
-                <input type="text" id="suffixInput" placeholder="e.g. 100Q or 1.5d">
-            </div>
-        </div>
-        <button class="convert-btn" onclick="convertSuffix()">Convert to Total BE</button>
-    </div>
 
     <div class="input-row">
         <div class="input-group">
@@ -177,53 +148,9 @@
 </div>
 
 <script>
-// Function to convert game suffixes to E notation
-function convertSuffix() {
-    let input = document.getElementById('suffixInput').value.trim().replace(/,/g, '');
-    
-    // Regular expression to split the number and the letters (e.g. "100Q" -> "100" and "Q")
-    let match = input.match(/^([0-9.]+)\s*([a-zA-Z]+)$/);
-    
-    if (!match) {
-        alert("Invalid format. Please type like '100Q' or '1.5d'.");
-        return;
-    }
-
-    let num = parseFloat(match[1]);
-    let suffix = match[2];
-
-    // The suffix dictionary based on your images
-    const suffixes = {
-        'k': 3, 'm': 6, 'b': 9, 't': 12, 'q': 15, 'Q': 18, 's': 21, 'S': 24, 'O': 27, 'N': 30, 'd': 33, 'U': 36, 'D': 39
-    };
-
-    // Capitalization matters (q is 15, Q is 18)
-    let exp = suffixes[suffix];
-
-    if (exp === undefined) {
-        alert("Unknown suffix! Use k, m, b, t, q, Q, s, S, O, N, d, U, or D.");
-        return;
-    }
-
-    // Calculate the final E number
-    let finalE = exp;
-    let finalM = num;
-
-    // E.g., if they type 1,000Q, that's 1000 * 10^18 = 1 * 10^21
-    while (finalM >= 10) {
-        finalM /= 10;
-        finalE += 1;
-    }
-
-    let formattedString = finalM.toFixed(3) + "E+" + finalE;
-    
-    // Put the result into the main Total BE box
-    document.getElementById('totalBe').value = formattedString;
-    document.getElementById('suffixInput').value = ""; // clear the box
-}
-
 function calculate() {
     try {
+        // If a user leaves a box blank, default it to 0
         let getVal = (id) => {
             let val = document.getElementById(id).value;
             return val.trim() === "" ? "0" : val.toUpperCase().replace('+', '').replace(' ', '');
@@ -244,7 +171,7 @@ function calculate() {
         let currTurtle = parseNum(getVal('currTurtle'));
         let currMisc = parseInt(getVal('currMisc')) || 0;
 
-        if (isNaN(total.m) || isNaN(total.e)) return alert("Invalid Total BE. Please use format like 5.25e308");
+        if (isNaN(total.m) || isNaN(total.e)) return alert("Invalid Total BE");
 
         let totalE = total.e + Math.log10(total.m);
 
